@@ -66,13 +66,13 @@ function changeColorBoxes() {
 }
 
 function toggleLock(e) {
-  for (var i = 0; i < currentColorPalette.length; i++) {
+  currentColorPalette.forEach((color, i) => {
     if (e.target.parentNode.id === `box${i}`) {
-      currentColorPalette[i].locked = !currentColorPalette[i].locked;
-      document.getElementById(`lock${i}`).classList.toggle('hidden');
-      document.getElementById(`unlock${i}`).classList.toggle('hidden');
-    }
-  }
+        color.locked = !color.locked;
+        document.getElementById(`lock${i}`).classList.toggle('hidden');
+        document.getElementById(`unlock${i}`).classList.toggle('hidden');
+      }
+  })
 }
 
 function displayPalette() {
@@ -88,11 +88,7 @@ function loadPage() {
 }
 
 function savePalettes() {
-  var newPalette = [];
-  for (var i = 0; i < currentColorPalette.length; i++) {
-    newPalette.push(currentColorPalette[i]);
-  }
-  savedPalettes.push(newPalette);
+  savedPalettes.push([...currentColorPalette]);
   displaySavedPalettes();
   displayPalette();
 }
