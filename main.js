@@ -34,6 +34,7 @@ function createHexCode() {
   return {
     locked: false,
     code: `#${hexCode}`,
+    id: Date.now()
   };
 }
 
@@ -129,19 +130,19 @@ function changeSavedDisplay(e) {
 }
 
 function editPalette(e) {
-  for (var i = 0; i < savedPalettes.length; i++) {
+  savedPalettes.forEach((palette, i) => {
     if (e.target.parentNode.id === `${i}` && e.target.className !== 'delete') {
-      displayEditPalette(i);
-      changeHexCodes();
-      changeColorBoxes();
-    }
-  }
+        displayEditPalette(palette)
+        changeHexCodes();
+        changeColorBoxes();
+      }
+  })
 }
 
-function displayEditPalette(i) {
-  for (var j = 0; j < currentColorPalette.length; j++) {
-    currentColorPalette[j].code = savedPalettes[i][j].code;
-  }
+function displayEditPalette(palette) {
+    currentColorPalette.forEach((color, i) => {
+        color.code = palette[i].code;
+    })
 }
 
 function changeTitleColor(e) {
