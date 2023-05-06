@@ -93,21 +93,21 @@ function savePalettes() {
   displayPalette();
 }
 
+
 function displaySavedPalettes() {
   savedSectionMsg.classList.add('hidden');
   savedPalettesContainer.innerHTML = '';
-  for (var i = 0; i < savedPalettes.length; i++) {
+  savedPalettes.forEach((palette, i) => {
     savedPalettesContainer.innerHTML += `
-        <section class="mini-container" id="${i}">
-            <section class="mini-palette" style="background-color: ${savedPalettes[i][0].code}"></section>
-            <section class="mini-palette" style="background-color: ${savedPalettes[i][1].code}"></section>
-            <section class="mini-palette" style="background-color: ${savedPalettes[i][2].code}"></section>
-            <section class="mini-palette" style="background-color: ${savedPalettes[i][3].code}"></section>
-            <section class="mini-palette" style="background-color: ${savedPalettes[i][4].code}"></section>
-            <img class="delete" data-index-number="${i}" src="./icons/delete.png">
-        </section>
-        `;
-  }
+      <section class="mini-container" id="${i}">
+        <img class="delete" data-index-number="${i}" src="./icons/delete.png">
+      </section>`;
+    addMiniPalettes(palette, i);
+  });
+}
+  
+function addMiniPalettes(palette, index) {
+  palette.forEach(color => savedPalettesContainer.children[index].innerHTML += `<section class="mini-palette" style="background:${color.code}"></section>`);
 }
 
 function deletePalette(e) {
