@@ -48,11 +48,9 @@ function loadPalette() {
 }
 
 function getNewPalette() {
-  for (var i = 0; i < currentColorPalette.length; i++) {
-    if (!currentColorPalette[i].locked) {
-        currentColorPalette.splice(i, 1, createHexCode());
-    }
-  }
+  currentColorPalette.forEach((color, i) => {
+    if(!color.locked) currentColorPalette.splice(i, 1, createHexCode())
+  })
 }
 
 function changeHexCodes() {
