@@ -33,8 +33,7 @@ function createHexCode() {
   var hexCode = hexChars.join('');
   return {
     locked: false,
-    code: `#${hexCode}`,
-    id: Date.now()
+    code: `#${hexCode}`
   };
 }
 
@@ -66,6 +65,24 @@ function changeColorBoxes() {
   });
 }
 
+function show(el) {
+  el.classList.remove('hidden');
+}
+function hide(el) {
+  el.classList.add('hidden');
+}
+
+function changeLocks() {
+  currentColorPalette.forEach((color, i) => {
+    if (color.locked) {
+      show(document.getElementById(`lock${i}`));
+      hide(document.getElementById(`unlock${i}`));
+    } else {
+      hide(document.getElementById(`lock${i}`));
+      show(document.getElementById(`unlock${i}`));
+    }});
+}
+
 function toggleLock(e) {
   currentColorPalette.forEach((color, i) => {
     if (e.target.parentNode.id === `box${i}`) {
@@ -89,7 +106,8 @@ function loadPage() {
 }
 
 function savePalettes() {
-  savedPalettes.push([...currentColorPalette]);
+  let currentCopy = currentColorPalette.map((color) => ({...color}));
+  savedPalettes.push(currentCopy);
   displaySavedPalettes();
   displayPalette();
 }
@@ -132,17 +150,17 @@ function changeSavedDisplay(e) {
 function editPalette(e) {
   savedPalettes.forEach((palette, i) => {
     if (e.target.parentNode.id === `${i}` && e.target.className !== 'delete') {
-        displayEditPalette(palette)
+        updateCurrentPalette(palette);
         changeHexCodes();
         changeColorBoxes();
+        changeLocks();
       }
   })
 }
 
-function displayEditPalette(palette) {
-    currentColorPalette.forEach((color, i) => {
-        color.code = palette[i].code;
-    })
+function updateCurrentPalette(palette) {
+    let paletteCopy = palette.map((color) => ({...color}))
+    currentColorPalette = paletteCopy;
 }
 
 function changeTitleColor(e) {
