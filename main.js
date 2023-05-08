@@ -25,6 +25,14 @@ function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
 
+function show(el) {
+  el.classList.remove('hidden');
+}
+
+function hide(el) {
+  el.classList.add('hidden');
+}
+
 function createHexCode() {
   var hexChars = [];
   for (var i = 0; i < 6; i++) {
@@ -65,12 +73,6 @@ function changeColorBoxes() {
   });
 }
 
-function show(el) {
-  el.classList.remove('hidden');
-}
-function hide(el) {
-  el.classList.add('hidden');
-}
 
 function changeLocks() {
   currentColorPalette.forEach((color, i) => {
